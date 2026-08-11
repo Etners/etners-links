@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이트너스 | 링크 모음</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+  :root{
+    --charcoal: #333132;
+    --charcoal-deep: #201f20;
+    --primary: #ff6d2d;
+    --primary-light: #ff9a5c;
+    --primary-deep: #e0530f;
+    --primary-soft: #ffe6d6;
+    --card-bg: #ffffff;
+    --ink: #333132;
+    --ink-soft: #8f8b8b;
+    --hairline: #ece8e6;
+    --card-width: 460px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body{
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    background: var(--charcoal);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient side background (visible on wide viewports) */
+  .stage{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(255,255,255,0.22), transparent 45%),
+      radial-gradient(circle at 88% 92%, rgba(224,83,15,0.5), transparent 55%),
+      linear-gradient(155deg, var(--primary-light) 0%, var(--primary) 48%, var(--primary-deep) 100%);
+  }
+
+  .stage::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.16) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+  }
+
+  /* Card: fixed mobile width, centered; scrolls vertically since content is long */
+  .card{
+    position: relative;
+    width: 100%;
+    max-width: var(--card-width);
+    background: var(--card-bg);
+    min-height: 100vh;
+    padding: 52px 26px 40px;
+    box-shadow: 0 0 80px rgba(0,0,0,0.35);
+  }
+
+  @media (min-width: 560px){
+    .stage{ padding: 40px 0; }
+    .card{
+      min-height: auto;
+      border-radius: 28px;
+      padding: 50px 32px 40px;
+      margin: 0;
+    }
+  }
+
+  .brand{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .wordmark{
+    width: 140px;
+    height: auto;
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .eyebrow{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+
+  h1{
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .desc{
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 36px;
+    max-width: 320px;
+  }
+
+  /* Section groups */
+  .section{
+    margin-bottom: 14px;
+  }
+
+  .section-title{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    padding-left: 2px;
+  }
+
+  .section-title::after{
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--hairline);
+  }
+
+  .links{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .links-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .links-grid .link-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 13px 14px;
+  }
+
+  .links-grid .link-text{
+    padding-right: 18px;
+    width: 100%;
+  }
+
+  .links-grid .link-title{
+    font-size: 13.5px;
+    white-space: normal;
+  }
+
+  .links-grid .link-url{
+    font-size: 10.5px;
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  .links-grid .arrow{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .link-row{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 13px;
+    border: 1px solid var(--hairline);
+    background: #fdfcfb;
+    text-decoration: none;
+    color: var(--ink);
+    overflow: hidden;
+    transition: border-color .18s ease, transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+
+  .link-row::before{
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--primary);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform .22s ease;
+  }
+
+  .link-row:hover{
+    border-color: rgba(255,109,45,0.4);
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -14px rgba(255,109,45,0.45);
+  }
+
+  .link-row:hover::before{
+    transform: scaleY(1);
+  }
+
+  .link-row:active{
+    transform: translateY(0);
+  }
+
+  .link-text{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .link-title{
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-url{
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .arrow{
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    color: var(--primary);
+    transition: transform .18s ease;
+  }
+
+  .link-row:hover .arrow{
+    transform: translateX(3px);
+  }
+
+  .bottom-block{
+    margin-top: -48px;
+  }
+
+  .mascot-row{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+  }
+
+  .mascot-corner{
+    width: 88px;
+    height: auto;
+    margin-right: 2px;
+    filter: drop-shadow(0 8px 14px rgba(255,109,45,0.2));
+  }
+
+  @media (min-width: 560px){
+    .mascot-corner{
+      width: 98px;
+      margin-right: -14px;
+    }
+  }
+
+  .footer{
+    text-align: center;
+  }
+
+  .footer-line{
+    height: 1px;
+    background: var(--hairline);
+    margin-bottom: 20px;
+  }
+
+  .footer p{
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .link-row, .link-row::before, .arrow{ transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <main class="card">
+      <div class="brand">
+        <img class="wordmark" src="etners-logo.png" alt="etners">
+        <p class="eyebrow">Link Hub</p>
+        <h1>이트너스</h1>
+        <p class="desc">이튼이와 함께 이트너스의<br>다양한 채널을 한곳에서 만나보세요.</p>
+      </div>
+
+      <div class="section">
+        <p class="section-title">공식 채널</p>
+        <nav class="links">
+          <a class="link-row" href="https://www.etners.com/main/dashboard" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">이트너스 홈페이지</div>
+              <div class="link-url">etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://youtube.com/channel/UCplJe-DdR7EuGgy6WrNadHw?si=iXACCirmGAOVgpf4" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">이트너스 공식 유튜브 채널</div>
+              <div class="link-url">youtube.com/@etners</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://m.blog.naver.com/etners" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">이트너스 공식 블로그</div>
+              <div class="link-url">blog.naver.com/etners</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </nav>
+      </div>
+
+      <div class="section">
+        <p class="section-title">서비스</p>
+        <nav class="links links-grid">
+          <a class="link-row" href="https://www.gamdongtime.com/landing" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">감동타임</div>
+              <div class="link-url">gamdongtime.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://sharedservice.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">쉐어드서비스</div>
+              <div class="link-url">sharedservice.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://esop.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">ESOP</div>
+              <div class="link-url">esop.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://etnerspayroll.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">페이롤</div>
+              <div class="link-url">etnerspayroll.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://mall.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">이트너스 몰</div>
+              <div class="link-url">mall.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://housing.etners.com/#top" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">하우징</div>
+              <div class="link-url">housing.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://moving.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">무빙</div>
+              <div class="link-url">moving.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://relocation.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">릴로케이션</div>
+              <div class="link-url">relocation.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://bidding.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">비딩</div>
+              <div class="link-url">bidding.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://etnersefs.com/landing" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">EFS</div>
+              <div class="link-url">etnersefs.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://shop.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">이트너스 샵</div>
+              <div class="link-url">shop.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://maemi-chat.etners.com/#/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">매미챗</div>
+              <div class="link-url">maemi-chat.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-row" href="https://esrm.etners.com/" target="_blank" rel="noopener">
+            <span class="link-text">
+              <div class="link-title">ESRM</div>
+              <div class="link-url">esrm.etners.com</div>
+            </span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </nav>
+      </div>
+
+      <div class="bottom-block">
+        <div class="mascot-row">
+          <img class="mascot-corner" src="etners-mascot.png" alt="이튼이">
+        </div>
+        <div class="footer">
+          <div class="footer-line"></div>
+          <p>&copy; 2026 Etners</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
